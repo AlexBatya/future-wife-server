@@ -1,0 +1,13 @@
+{
+	"server": {
+		"token": "OwqiesdfFdadD23sf",
+		"PORT": 3000 
+	},
+	"MySQL": {
+		"user": "root",
+		"host": "localhost",
+		"password": "212867",
+		"database": "my_database",
+  	"dialect": "mysql"
+	}
+}
