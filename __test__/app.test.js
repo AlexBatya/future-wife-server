@@ -11,10 +11,10 @@ describe("GET /api/guests", () => {
 		expect(response.status).toBe(200);
 	})
 
-	it("Должен находится определённый гость по id, либо писать что такого нет", async () => {
+	it("Должен находится определённый гость по ФИО (200), либо писать что такого нет(404)", async () => {
 		const response = await request(app)
 			.get('/api/guests/Иван%20Иванов')
 			.set("Authorization", config.server.token)
-		expect(response.status).toBe(200);
+		expect(response.status).toBe(404);
 	})
 })

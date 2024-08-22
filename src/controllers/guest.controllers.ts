@@ -19,12 +19,15 @@ class GuestController {
 		try {
 			const guest = await GuestService.getGuestByName(full_name);
 			if (guest) {
-				res.status(200).json(guest);
+				res
+					.status(200).json(guest);
 			} else {
-				res.status(404).json({ message: 'Гость не найден' });
+				res
+					.status(404).json({ message: 'Гость не найден' });
 			}
 		} catch (error) {
-			res.status(500).json({ error: `Ошибка при выборе гостя с именем ${full_name}: ` + error.message });
+			res.status(500)
+				.json({ error: `Ошибка при выборе гостя с именем ${full_name}: ` + error.message });
 		}
   }
 
