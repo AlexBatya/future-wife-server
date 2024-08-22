@@ -35,8 +35,16 @@ class GuestController {
   public async addGuest(req: Request, res: Response): Promise<void> {
 		const guestData = req.body;
 		try {
-			const newGuest = await GuestService.addGuest(guestData);
-			res.status(201).json(newGuest);
+			if(req.body){
+				const newGuest = await GuestService.addGuest(guestData);
+				res
+					.status(201).json(newGuest);
+			}
+			else{
+				res
+					.status(404)
+					.json("Данные по новому пользователю не отправлены")
+			}
 		} catch (error) {
 			res.status(500).json({ error: 'Ошибка при добавлении нового гостя: ' + error.message });
 		}

@@ -17,4 +17,27 @@ describe("GET /api/guests", () => {
 			.set("Authorization", config.server.token)
 		expect(response.status).toBe(404);
 	})
+
+	// it("Должен добавится определённый гость", async () => {
+	// 	const data = {
+	// 		id_guest: 1,
+	// 		full_name: "Иван Иванов",
+	// 		attending : true,
+	// 		invitation_text: "Соси дрочи",
+	// 		plus_one: true,
+	// 		family: true
+	// 	}
+	// 	const response = await request(app)
+	// 		.post('/api/guests')
+	// 		.set("Authorization", config.server.token)
+	// 		.send(data)
+	// 	expect(response.status).toBe(201)
+	// })
+
+	it("Должен удалится гость по выбранному id", async () => {
+		const response = await request(app)
+			.delete("/api/guests/1")
+			.set("Authorization", config.server.token)
+		expect(response.status).toBe(200)
+	})
 })
