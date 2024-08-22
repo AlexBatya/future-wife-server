@@ -7,7 +7,7 @@
 		"user": "root",
 		"host": "localhost",
 		"password": "212867",
-		"database": "my_database",
+		"database": "wedding",
   	"dialect": "mysql"
 	}
 }

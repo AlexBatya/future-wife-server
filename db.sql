@@ -7,11 +7,12 @@ USE wedding;
 -- Создаем таблицу guests
 CREATE TABLE guests (
 	id INT AUTO_INCREMENT PRIMARY KEY,         -- Уникальный идентификатор для каждого гостя
+	id_guest INT,
 	full_name VARCHAR(255) NOT NULL,           -- Полное имя гостя
-	attending ENUM('будет', 'не будет') NOT NULL, -- Информация, будет ли гость присутствовать
+	attending BOOLEAN,                -- Информация, будет ли гость присутствовать (TRUE или FALSE)
 	invitation_text TEXT,                      -- Текст приглашения для гостя
-	plus_one ENUM('плюс один', 'без дополнительных гостей') NOT NULL, -- Есть ли плюс один
-	family ENUM('семьёй', 'не семьёй') NOT NULL -- Будет ли гость с семьёй
+	plus_one BOOLEAN,                 -- Есть ли плюс один (TRUE или FALSE)
+	family BOOLEAN                    -- Будет ли гость с семьёй (TRUE или FALSE)
 );
 
 -- Создаем таблицу users
@@ -22,4 +23,3 @@ CREATE TABLE users (
 	password VARCHAR(255) NOT NULL             -- Пароль пользователя
 );
 
--- Дополнительно можно создать индексы или внешние ключи, если нужно
