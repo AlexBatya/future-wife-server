@@ -13,33 +13,33 @@ class GuestModels extends Model {
 
 GuestModels.init({
   id: {
-		type: DataTypes.INTEGER,
-		autoIncrement: true,
-		primaryKey: true,
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
   },
   id_guest: {
-		type: DataTypes.INTEGER,
-		allowNull: false,
+    type: DataTypes.INTEGER,
+    allowNull: false,
   },
   full_name: {
-		type: DataTypes.STRING,
-		allowNull: false,
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   attending: {
-		type: DataTypes.BOOLEAN,
-		allowNull: true,
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
   },
   invitation_text: {
-		type: DataTypes.TEXT,
-		allowNull: true,
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
   plus_one: {
-		type: DataTypes.BOOLEAN,
-		allowNull: true,
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
   },
   family: {
-		type: DataTypes.BOOLEAN,
-		allowNull: true,
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
   },
 }, {
   sequelize: db,
