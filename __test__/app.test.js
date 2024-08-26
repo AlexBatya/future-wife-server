@@ -58,4 +58,50 @@ describe("GET /api/guests", () => {
 	// 		.set("Authorization", config.server.token)
 	// 	expect(response.status).toBe(200)
 	// })
+	it("Должно выдать json. Либо нет семей либо массив семей", async () => {
+		const response = await request(app)
+			.get('/api/family')
+			.set("Authorization", config.server.token)
+		expect(response.status).toBe(200);
+  })
+
+  it("POST /api/family/ Должна добавится определённая семья", async () => {
+		const data = {
+			family_name: "Семья Ивановых",
+			text: "Приглашаем вас на нашу свадьбу!",
+			presence: true
+		}
+		const response = await request(app)
+			.post('/api/family')
+			.set("Authorization", config.server.token)
+			.send(data)
+		expect(response.status).toBe(201)
+  })
+
+  it("GET /api/family/Семья%20Ивановых Должна находится определённая семья по имени (200), либо писать что такой нет (404)", async () => {
+		const response = await request(app)
+			.get('/api/family/Семья%20Ивановых')
+			.set("Authorization", config.server.token)
+		expect(response.status).toBe(200);
+  })
+
+  it("PUT /api/family/Семья%20Ивановых Должно изменять данные о семье", async () => {
+		const data2 = {
+			family_name: "Семья Ивановых",
+			text: "К сожалению, мы не сможем присутствовать.",
+			presence: false
+		}
+		const response = await request(app)
+			.put('/api/family/Семья%20Ивановых')
+			.set("Authorization", config.server.token)
+			.send(data2)
+		expect(response.status).toBe(200);
+  })
+
+  // it("DELETE /api/family Должна удалится семья по выбранному имени", async () => {
+  //   const response = await request(app)
+  //     .delete("/api/family/Семья%20Ивановых")
+  //     .set("Authorization", config.server.token)
+  //   expect(response.status).toBe(200)
+  // })
 })
