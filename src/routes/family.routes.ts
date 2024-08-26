@@ -13,3 +13,4 @@ router.delete('/:family_name', auth, FamilyController.deleteFamily);  // Уда�
 router.put('/:family_name', auth, FamilyController.updateFamily);  // Обновление информации о семье
 
 export default router;
+

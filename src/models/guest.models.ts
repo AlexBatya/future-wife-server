@@ -1,3 +1,4 @@
+// src/models/guest.models.ts
 import { DataTypes, Model } from 'sequelize';
 import db from '../db';
 
