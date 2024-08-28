@@ -9,8 +9,8 @@ router.get('/', auth, FamilyController.getAllFamilies);  // Получение �
 router.get('/name/:family_name', auth, FamilyController.getFamilyByName);  // Поиск семьи по имени
 router.get('/id/:id', auth, FamilyController.getFamilyById);  // Поиск семьи по ID
 router.post('/', auth, FamilyController.addFamily);  // Добавление новой семьи
-router.delete('/:family_name', auth, FamilyController.deleteFamily);  // Удаление семьи по имени
-router.put('/:family_name', auth, FamilyController.updateFamily);  // Обновление информации о семье
+router.delete('/:id?', auth, FamilyController.deleteFamily);  // Удаление семьи по имени или ID
+router.put('/:id?', auth, FamilyController.updateFamily);  // Обновление информации о семье по имени или ID
 
 export default router;
 

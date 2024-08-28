@@ -65,38 +65,60 @@ class FamilyController {
     }
   }
 
-  // Удаление семьи с проверкой на наличие
+  // Удаление семьи по имени или ID
   public async deleteFamily(req: Request, res: Response): Promise<void> {
-    const { family_name } = req.params;
-    try {
-      const existingFamily = await FamilyService.getFamilyByName(family_name);
-      if (!existingFamily) {
-        res.status(404).json({ message: 'Семья не найдена' });
-        return;
-      }
+    const { family_name, id } = req.params;
 
-      const success = await FamilyService.deleteFamily(family_name);
-      res.status(200).json({ message: 'Семья успешно удалена' });
+    try {
+      if (id) {
+        const success = await FamilyService.deleteFamilyById(Number(id));
+        if (success) {
+          res.status(200).json({ message: 'Семья успешно удалена по ID' });
+        } else {
+          res.status(404).json({ message: 'Семья с указанным ID не найдена' });
+        }
+      } else if (family_name) {
+        const success = await FamilyService.deleteFamily(family_name);
+        if (success) {
+          res.status(200).json({ message: 'Семья успешно удалена по имени' });
+        } else {
+          res.status(404).json({ message: 'Семья с указанным именем не найдена' });
+        }
+      } else {
+        res.status(400).json({ message: 'Необходимо указать имя семьи или ID' });
+      }
     } catch (error) {
-      res.status(500).json({ error: `Ошибка при удалении семьи с именем ${family_name}: ` + error.message });
+      res.status(500).json({ error: 'Ошибка при удалении семьи: ' + error.message });
     }
   }
 
-  // Обновление информации о семье с проверкой на наличие
+  // Обновление информации о семье по имени или ID
   public async updateFamily(req: Request, res: Response): Promise<void> {
-    const { family_name } = req.params;
+    const { family_name, id } = req.params;
     const updatedData = req.body;
-    try {
-      const existingFamily = await FamilyService.getFamilyByName(family_name);
-      if (!existingFamily) {
-        res.status(404).json({ message: 'Семья не найдена' });
-        return;
-      }
+		console.log("фщшвазойшщгпзуцгшкрпзшгуцктпшаводлтмоавлтмдвыалотмвлоатмвдлаотмвдлаотмвдлоатм")
+		console.log(req.body);
 
-      const success = await FamilyService.updateFamily(family_name, updatedData);
-      res.status(200).json({ message: 'Информация о семье успешно обновлена' });
+    try {
+      if (id) {
+        const success = await FamilyService.updateFamilyById(Number(id), updatedData);
+        if (success) {
+          res.status(200).json({ message: 'Информация о семье успешно обновлена по ID' });
+        } else {
+          res.status(404).json({ message: 'Семья с указанным ID не найдена' });
+        }
+      } else if (family_name) {
+        const success = await FamilyService.updateFamily(family_name, updatedData);
+        if (success) {
+          res.status(200).json({ message: 'Информация о семье успешно обновлена по имени' });
+        } else {
+          res.status(404).json({ message: 'Семья с указанным именем не найдена' });
+        }
+      } else {
+        res.status(400).json({ message: 'Необходимо указать имя семьи или ID' });
+      }
     } catch (error) {
-      res.status(500).json({ error: `Ошибка при обновлении семьи с именем ${family_name}: ` + error.message });
+      res.status(500).json({ error: 'Ошибка при обновлении семьи: ' + error.message });
     }
   }
 }

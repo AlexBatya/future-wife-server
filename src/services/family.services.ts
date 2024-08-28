@@ -1,7 +1,7 @@
-// src/services/FamilyServices.ts
+// src/services/family.services.ts
 import FamilyModel from '../models/family.models';
 
-class FamilyServices {
+class FamilyService {
   // Получение всех данных из таблицы family
   public async getAllFamilies() {
     try {
@@ -43,7 +43,7 @@ class FamilyServices {
     }
   }
 
-  // Удаление записи о семье
+  // Удаление записи о семье по имени
   public async deleteFamily(family_name: string) {
     try {
       const result = await FamilyModel.destroy({ where: { family_name } });
@@ -53,7 +53,17 @@ class FamilyServices {
     }
   }
 
-  // Обновление информации о семье
+  // Удаление записи о семье по ID
+  public async deleteFamilyById(id: number) {
+    try {
+      const result = await FamilyModel.destroy({ where: { id } });
+      return result > 0;
+    } catch (error) {
+      throw new Error(`Ошибка при удалении семьи с ID ${id}`);
+    }
+  }
+
+  // Обновление информации о семье по имени
   public async updateFamily(family_name: string, updatedData: any) {
     try {
       const result = await FamilyModel.update(updatedData, { where: { family_name } });
@@ -62,7 +72,17 @@ class FamilyServices {
       throw new Error(`Ошибка при обновлении семьи с именем ${family_name}`);
     }
   }
+
+  // Обновление информации о семье по ID
+  public async updateFamilyById(id: number, updatedData: any) {
+    try {
+      const result = await FamilyModel.update(updatedData, { where: { id } });
+      return result[0] > 0;
+    } catch (error) {
+      throw new Error(`Ошибка при обновлении семьи с ID ${id}`);
+    }
+  }
 }
 
-export default new FamilyServices();
+export default new FamilyService();
 
