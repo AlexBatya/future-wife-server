@@ -1,21 +1,22 @@
-// src/controllers/FamilyController.ts
 import { Request, Response } from 'express';
 import FamilyService from '../services/family.services';
+import logger from '../logger';
 
 class FamilyController {
-  // Получение всех данных из таблицы family
   public async getAllFamilies(req: Request, res: Response): Promise<void> {
+    logger.info(`Запрос на получение всех семей - ${req.method} ${req.originalUrl}`);
     try {
       const families = await FamilyService.getAllFamilies();
       res.status(200).json(families);
     } catch (error) {
+      logger.error(`Ошибка при выборке всех семей: ${error.message}`);
       res.status(500).json({ error: 'Ошибка при выборке всех семей: ' + error.message });
     }
   }
 
-  // Получение записи по названию семьи
   public async getFamilyByName(req: Request, res: Response): Promise<void> {
     const { family_name } = req.params;
+    logger.info(`Запрос на получение семьи по имени ${family_name} - ${req.method} ${req.originalUrl}`);
     try {
       const family = await FamilyService.getFamilyByName(family_name);
       if (family) {
@@ -24,13 +25,14 @@ class FamilyController {
         res.status(404).json({ message: 'Семья не найдена' });
       }
     } catch (error) {
+      logger.error(`Ошибка при выборе семьи с именем ${family_name}: ${error.message}`);
       res.status(500).json({ error: `Ошибка при выборе семьи с именем ${family_name}: ` + error.message });
     }
   }
 
-  // Получение записи по ID
   public async getFamilyById(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
+    logger.info(`Запрос на получение семьи по ID ${id} - ${req.method} ${req.originalUrl}`);
     try {
       const family = await FamilyService.getFamilyById(Number(id));
       if (family) {
@@ -39,13 +41,14 @@ class FamilyController {
         res.status(404).json({ message: 'Семья не найдена' });
       }
     } catch (error) {
+      logger.error(`Ошибка при выборе семьи с ID ${id}: ${error.message}`);
       res.status(500).json({ error: `Ошибка при выборе семьи с ID ${id}: ` + error.message });
     }
   }
 
-  // Добавление новой семьи с проверкой на наличие
   public async addFamily(req: Request, res: Response): Promise<void> {
     const familyData = req.body;
+    logger.info(`Запрос на добавление новой семьи - ${req.method} ${req.originalUrl}`);
     try {
       if (!familyData.family_name) {
         res.status(400).json({ message: 'Название семьи не указано' });
@@ -61,14 +64,14 @@ class FamilyController {
       const newFamily = await FamilyService.addFamily(familyData);
       res.status(201).json(newFamily);
     } catch (error) {
+      logger.error(`Ошибка при добавлении новой семьи: ${error.message}`);
       res.status(500).json({ error: 'Ошибка при добавлении новой семьи: ' + error.message });
     }
   }
 
-  // Удаление семьи по имени или ID
   public async deleteFamily(req: Request, res: Response): Promise<void> {
     const { family_name, id } = req.params;
-
+    logger.info(`Запрос на удаление семьи - ${req.method} ${req.originalUrl}`);
     try {
       if (id) {
         const success = await FamilyService.deleteFamilyById(Number(id));
@@ -88,17 +91,15 @@ class FamilyController {
         res.status(400).json({ message: 'Необходимо указать имя семьи или ID' });
       }
     } catch (error) {
+      logger.error(`Ошибка при удалении семьи: ${error.message}`);
       res.status(500).json({ error: 'Ошибка при удалении семьи: ' + error.message });
     }
   }
 
-  // Обновление информации о семье по имени или ID
   public async updateFamily(req: Request, res: Response): Promise<void> {
     const { family_name, id } = req.params;
     const updatedData = req.body;
-		console.log("фщшвазойшщгпзуцгшкрпзшгуцктпшаводлтмоавлтмдвыалотмвлоатмвдлаотмвдлаотмвдлоатм")
-		console.log(req.body);
-
+    logger.info(`Запрос на обновление информации о семье - ${req.method} ${req.originalUrl}`);
     try {
       if (id) {
         const success = await FamilyService.updateFamilyById(Number(id), updatedData);
@@ -118,6 +119,7 @@ class FamilyController {
         res.status(400).json({ message: 'Необходимо указать имя семьи или ID' });
       }
     } catch (error) {
+      logger.error(`Ошибка при обновлении семьи: ${error.message}`);
       res.status(500).json({ error: 'Ошибка при обновлении семьи: ' + error.message });
     }
   }

@@ -52,12 +52,12 @@ describe("GET /api/guests", () => {
 	// 	expect(response.status).toBe(200);
 	// })
 	//
-	// // it("DELETE /api/guests Должен удалится гость по выбранному full_name", async () => {
-	// // 	const response = await request(app)
-	// // 		.delete("/api/guests/Иван%20Иванов")
-	// // 		.set("Authorization", config.server.token)
-	// // 	expect(response.status).toBe(200)
-	// // })
+	it("DELETE /api/guests Должен удалится гость по выбранному full_name", async () => {
+		const response = await request(app)
+			.delete("/api/guests/id_guest/1")
+			.set("Authorization", config.server.token)
+		expect(response.status).toBe(200)
+	})
 	// it("Должно выдать json. Либо нет семей либо массив семей", async () => {
 	// 	const response = await request(app)
 	// 		.get('/api/family')
@@ -85,16 +85,16 @@ describe("GET /api/guests", () => {
 	// 	expect(response.status).toBe(200);
  //  })
 
-  it("PUT /api/family/Семья%20Ивановых Должно изменять данные о семье", async () => {
-		const data2 = {
-			presence: false
-		}
-		const response = await request(app)
-			.put('/api/family/1')
-			.set("Authorization", config.server.token)
-			.send(data2)
-		expect(response.status).toBe(200);
-  })
+  // it("PUT /api/family/Семья%20Ивановых Должно изменять данные о семье", async () => {
+		// const data2 = {
+		// 	presence: false
+		// }
+		// const response = await request(app)
+		// 	.put('/api/family/1')
+		// 	.set("Authorization", config.server.token)
+		// 	.send(data2)
+		// expect(response.status).toBe(200);
+  // })
 
   // it("DELETE /api/family Должна удалится семья по выбранному имени", async () => {
   //   const response = await request(app)
