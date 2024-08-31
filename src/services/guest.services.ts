@@ -24,6 +24,17 @@ class GuestServices {
     }
   }
 
+	public async getGuestsByIdGuest(id_guest: number) {
+			logger.info(`Запрос на получение гостей по ID гостя ${id_guest} из сервиса`);
+			try {
+					const guests = await GuestModels.findAll({ where: { id_guest } });
+					return guests;
+			} catch (error) {
+					logger.error(`Ошибка при выборе гостей с ID гостя ${id_guest} из сервиса: ${error.message}`);
+					throw new Error(`Ошибка при выборе гостей с ID гостя ${id_guest}`);
+			}
+	}
+
   public async getGuestById(id: number) {
     logger.info(`Запрос на получение гостя по ID ${id} из сервиса`);
     try {

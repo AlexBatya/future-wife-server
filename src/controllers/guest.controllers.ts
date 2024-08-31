@@ -30,6 +30,22 @@ class GuestController {
 		}
   }
 
+	public async getGuestsByIdGuest(req: Request, res: Response): Promise<void> {
+			const { id_guest } = req.params;
+			logger.info(`Запрос на получение гостей по ID гостя ${id_guest} - ${req.method} ${req.originalUrl}`);
+			try {
+					const guests = await GuestService.getGuestsByIdGuest(Number(id_guest));
+					if (guests && guests.length > 0) {
+							res.status(200).json(guests);
+					} else {
+							res.status(404).json({ message: 'Гости не найдены' });
+					}
+			} catch (error) {
+					logger.error(`Ошибка при выборе гостей с ID гостя ${id_guest}: ${error.message}`);
+					res.status(500).json({ error: `Ошибка при выборе гостей с ID гостя ${id_guest}: ` + error.message });
+			}
+	}
+
   public async getGuestById(req: Request, res: Response): Promise<void> {
 		const { id } = req.params;
 		logger.info(`Запрос на получение гостя по ID ${id} - ${req.method} ${req.originalUrl}`);
