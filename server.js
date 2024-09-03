@@ -6,8 +6,8 @@ const color = require('colors');
 const PORT = config.server.PORT;
 
 syncDatabase().then(() => {
-  app.listen(PORT, () => {
-		console.log(color.green(`Сервер запущен на http://localhost:${PORT}, батеньки...`));
-  });
+	  app.listen(PORT, () => {
+		  		console.log(color.green(`Сервер запущен на http://localhost:${PORT}, батеньки...`));
+					  });
 });
 
