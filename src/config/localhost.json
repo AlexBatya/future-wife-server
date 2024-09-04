@@ -4,9 +4,9 @@
 		"PORT": 3000 
 	},
 	"MySQL": {
-		"user": "alexnadi",
-		"host": "alexnadi.ru",
-		"password": "212867Alex%P",
+		"user": "root",
+		"host": "localhost",
+		"password": "212867",
 		"database": "wedding",
   	"dialect": "mysql"
 	}

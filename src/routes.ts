@@ -5,7 +5,7 @@ import familyRouter from './routes/family.routes';
 
 const router: Router = Router();
 
-// router.use('', userRouter);
+ router.use('/users', userRouter);
 
 router.use('/guests', guestRouter);
 router.use('/family', familyRouter);
