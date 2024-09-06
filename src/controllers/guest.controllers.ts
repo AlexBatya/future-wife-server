@@ -153,6 +153,31 @@ class GuestController {
       res.status(500).json({ error: `Ошибка при обновлении гостя с именем ${full_name}: ` + error.message });
     }
   }
+
+	
+	public async updateGuestById(req: Request, res: Response): Promise<void> {
+			const { id } = req.params;
+			const updatedData = req.body;
+			logger.info(`Запрос на обновление информации о госте с ID ${id} - ${req.method} ${req.originalUrl}`);
+			try {
+					const existingGuest = await GuestService.getGuestById(Number(id));
+					if (!existingGuest) {
+							res.status(404).json({ message: 'Гость не найден' });
+							return;
+					}
+
+					const success = await GuestService.updateGuestById(Number(id), updatedData);
+					if (success) {
+							res.status(200).json({ message: 'Информация о госте успешно обновлена' });
+					} else {
+							res.status(500).json({ message: 'Ошибка при обновлении информации о госте' });
+					}
+			} catch (error) {
+					logger.error(`Ошибка при обновлении гостя с ID ${id}: ${error.message}`);
+					res.status(500).json({ error: `Ошибка при обновлении гостя с ID ${id}: ` + error.message });
+			}
+	}
+
 }
 
 export default new GuestController();

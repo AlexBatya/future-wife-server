@@ -80,26 +80,38 @@ class GuestServices {
   }
 
   public async deleteGuestByIdGuest(id_guest: number) {
-    logger.info(`Запрос на удаление гостя по ID гостя ${id_guest} из сервиса`);
-    try {
-      const result = await GuestModels.destroy({ where: { id_guest } });
-      return result > 0;
-    } catch (error) {
-      logger.error(`Ошибка при удалении гостя с ID гостя ${id_guest} из сервиса: ${error.message}`);
-      throw new Error(`Ошибка при удалении гостя с ID гостя ${id_guest}`);
-    }
+		logger.info(`Запрос на удаление гостя по ID гостя ${id_guest} из сервиса`);
+		try {
+			const result = await GuestModels.destroy({ where: { id_guest } });
+			return result > 0;
+		} catch (error) {
+			logger.error(`Ошибка при удалении гостя с ID гостя ${id_guest} из сервиса: ${error.message}`);
+			throw new Error(`Ошибка при удалении гостя с ID гостя ${id_guest}`);
+		}
   }
 
   public async updateGuest(full_name: string, updatedData: any) {
-    logger.info(`Запрос на обновление гостя с именем ${full_name} из сервиса`);
-    try {
-      const result = await GuestModels.update(updatedData, { where: { full_name } });
-      return result[0] > 0;
-    } catch (error) {
-      logger.error(`Ошибка при обновлении гостя с именем ${full_name} из сервиса: ${error.message}`);
-      throw new Error(`Ошибка при обновлении гостя с именем ${full_name}`);
-    }
+		logger.info(`Запрос на обновление гостя с именем ${full_name} из сервиса`);
+		try {
+			const result = await GuestModels.update(updatedData, { where: { full_name } });
+			return result[0] > 0;
+		} catch (error) {
+			logger.error(`Ошибка при обновлении гостя с именем ${full_name} из сервиса: ${error.message}`);
+			throw new Error(`Ошибка при обновлении гостя с именем ${full_name}`);
+		}
   }
+
+	public async updateGuestById(id: number, updatedData: any) {
+		logger.info(`Запрос на обновление гостя с ID ${id} из сервиса`);
+		try {
+				const result = await GuestModels.update(updatedData, { where: { id } });
+				return result[0] > 0;
+		} catch (error) {
+				logger.error(`Ошибка при обновлении гостя с ID ${id} из сервиса: ${error.message}`);
+				throw new Error(`Ошибка при обновлении гостя с ID ${id}`);
+		}
+	}
+
 }
 
 export default new GuestServices();

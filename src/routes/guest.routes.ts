@@ -13,5 +13,6 @@ router.delete('/id/:id', auth, GuestController.deleteGuestById);  // Удале�
 router.delete('/id_guest/:id_guest', auth, GuestController.deleteGuestByIdGuest);  // Удаление гостя по ID гостя (id_guest)
 router.get('/id_guest/:id_guest', auth, GuestController.getGuestsByIdGuest); // Получение всех гостей с указанным id_guest
 router.put('/:full_name', auth, GuestController.updateGuest);
+router.put('/id/:id', GuestController.updateGuestById);
 
 export default router;
